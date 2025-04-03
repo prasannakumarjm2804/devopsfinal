@@ -12,7 +12,7 @@ echo "🛠 Running Build Script..."
 ./build.sh
 
 echo "🔑 Logging into Docker Hub..."
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+echo "sh0f0oj23j" | docker login -u "prasannakumarjm" --password-stdin
 
 echo "🐳 Building Docker Image..."
 docker build -t prasannakumarjm/shop:latest .
