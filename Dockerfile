@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy index.html to the Nginx HTML directory
-COPY index.html /usr/share/nginx/html/
+COPY public/index.html /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
