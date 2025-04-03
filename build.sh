@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t car-app .
+docker build -t shop .
