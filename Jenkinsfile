@@ -13,9 +13,12 @@ pipeline {
             }
         }
 
-        stage('Verify Files in Workspace') {
+        stage('Debug Workspace') {
             steps {
-                sh 'ls -l'  // Check if frontend exists
+                script {
+                    sh 'pwd'  // Print current directory
+                    sh 'ls -l'  // List all files and folders
+                }
             }
         }
 
@@ -23,7 +26,6 @@ pipeline {
             steps {
                 script {
                     sh 'chmod +x deploy.sh'
-                    sh 'docker build -t prasannakumarjm/shop:latest .'  // Ensure Jenkins runs in the right directory
                     sh './deploy.sh'
                 }
             }
