@@ -1,17 +1,19 @@
-# Use Node.js as base image
-FROM node:18-alpine 
+# Build React frontend
+FROM node:18-alpine as frontend
+WORKDIR /app/frontend
+COPY frontend/ .
+RUN npm install && npm run build
 
-# Set the working directory
-WORKDIR /server 
+# Setup backend
+FROM node:18-alpine
+WORKDIR /server
 
-# Copy backend files
+# Copy backend and build frontend
 COPY backend/ /server/
+COPY --from=frontend /app/frontend/build /server/public
 
-# Install dependencies
 RUN npm install
 
-# Expose the server port
 EXPOSE 5000
 
-# Start the backend service
 CMD ["npm", "start"]
