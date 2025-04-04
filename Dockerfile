@@ -1,26 +1,24 @@
-# Stage 1: Build the React Frontend
-FROM node:18-alpine as build
+# Use a Node.js image
+FROM node:18-alpine
+
+# Set working directory
 WORKDIR /app
 
-# Copy package.json first for efficient caching
+# Copy package.json and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy the entire project
+# Copy the rest of the app
 COPY . .
 
-# Build the frontend (React)
+# Build React app
 RUN npm run build
 
-# Stage 2: Run the Node.js Backend
-FROM node:18-alpine
-WORKDIR /app
+# Install 'serve' to serve the built app
+RUN npm install -g serve
 
-# Copy the built frontend and backend
-COPY --from=build /app ./
-
-# Expose the backend port
+# Expose port 5000
 EXPOSE 5000
 
-# Start the Node.js server
-CMD ["npm", "start"]
+# Start the production server
+CMD ["serve", "-s", "build", "-l", "5000"]
